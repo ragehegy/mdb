@@ -17,4 +17,20 @@ This movie is rated:
   {{ object.get_rating_display }}
   </span>
 </div>
+<div>
+  <h2>
+    Score: {{ object.score|default_if_none:"TBD" }}
+  </h2>
+</div>
+<div>
+  {% if vote_form %}
+    <form method="POST" action="{{vote_form_url}}">
+      {% csrf_token %}
+      {{ vote_form.as_p }}
+      <button class="btn btn-sm btn-primary">Vote</button>
+    </form>
+  {% else %}
+    <p>Login to vote.</p>
+  {% endif %}
+</div>
 {% endblock %}
