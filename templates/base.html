@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" >
 <head >
@@ -12,15 +13,27 @@
     rel="stylesheet"
     crossorigin="anonymous"
   >
-  <title >
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>  <title >
     {% block title %}MyMDB{% endblock %}
   </title>
-  <style>
+  <style >
     .mymdb-masthead {
       background-color: #EEEEEE;
       margin-bottom: 1em;
     }
-  </style>
+
+    .errorlist {
+      color: #e11;
+    }
+    .movie-image img {
+      max-height: 10em;
+      max-width: 10em;
+    }
+
+    .mymdb-sidebar > div {
+      margin-bottom: 1em;
+    }
+  </style >
 
 </head >
 <body >
@@ -34,6 +47,34 @@
       >
         Movies
       </a>
+      <a
+        class="nav-link"
+        href="{% url 'core:TopMovies' %}"
+      >
+        Top 10 Movies
+      </a>
+      {% if request.user.is_authenticated %}
+        <a
+            class="nav-link"
+            href="{% url 'user:logout' %}"
+        >
+          Log out
+        </a>
+      {% else %}
+        <a
+            class="nav-link"
+            href="{% url 'user:login' %}"
+        >
+          Log in
+        </a>
+        <a
+            class="nav-link"
+            href="{% url 'user:register' %}"
+        >
+          Register
+        </a>
+
+      {% endif %}
     </nav>
   </div>
 </div>
@@ -51,5 +92,5 @@
   </div>
 </div>
 
-</body >
-</html >
+</body>
+</html>
