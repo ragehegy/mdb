@@ -2,12 +2,18 @@ from django.db import models
 from django.db.models import Sum
 from mdb import settings
 from django.contrib.auth import get_user_model
+from uuid import uuid4
+
 
 class MovieManager(models.Manager):
     def all_with_related_persons(self):
         qs = self.get_queryset()
-        qs = qs.select_related('director')
+        #select related works on joining 2 db tables before sending the query
+        qs = qs.select_related('director') 
+
+        #prefetch retrieve all required IDs in the query from Person model and joins it with Movie person fields(writers, actors) using python but not the db query (i.e. list/sets joins)
         qs = qs.prefetch_related('writers', 'actors')
+        
         return qs
 
     def all_with_related_persons_and_scores(self):
@@ -62,6 +68,26 @@ class Movie(models.Model):
 
     def __str__(self):
         return '{} ({})'.format(self.title, self.year)
+
+def movie_directory_path_with_uuid(instance, filename):
+    return '{}/{}.{}'.format(
+        instance.movie_id,
+        uuid4(),
+        filename.split('.')[-1]
+    )
+
+class MovieImage(models.Model):
+    image = models.ImageField(upload_to=movie_directory_path_with_uuid)
+    uploaded=models.DateTimeField(auto_now_add=True)
+    movie = models.ForeignKey(
+        "Movie",
+        on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE
+    )
+        
 
 class PersonManager(models.Manager):
     def all_with_prefetch_movies(self):
