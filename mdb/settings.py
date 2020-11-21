@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'https://django-mdb.herokuapp.com/',
+    'django-mdb.herokuapp.com',
 ]
 
 
