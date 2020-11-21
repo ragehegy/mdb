@@ -2,7 +2,7 @@ from .default import *
 import os
 import django_heroku
 
-DEBUG = True
+DEBUG = False
 
 assert SECRET_KEY is not None,(
     'Please provide app SECRET_KEY env variable with a value.'

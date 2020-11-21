@@ -137,6 +137,9 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/uploaded/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '../media_root/')
 STATIC_ROOT = os.path.join("staticfiles")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 
 LOGIN_REDIRECT_URL = 'core:MovieList'
