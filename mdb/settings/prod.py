@@ -44,7 +44,7 @@ CACHES = {
     }
 }
 
-MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+# MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
