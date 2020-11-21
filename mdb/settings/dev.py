@@ -1,9 +1,9 @@
-from mdb.common_settings import *
+from .default import *
 
 DEBUG = True
 SECRET_KEY = "some secret"
 
-INSTALLED_APPS += ['debug_toolbars']
+INSTALLED_APPS += ['debug_toolbar']
 
 DATABASES['default'].update({
     'NAME': 'mdb',

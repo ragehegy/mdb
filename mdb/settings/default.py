@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'iti@5f+&+h$sq^dv$9kp+ia*et6314a@ed%t(g)#g52t+12d6z'
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY') or 'hard to  guess key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mdb.urls'
@@ -134,8 +135,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/uploaded/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '../media_root/')
-LOGIN_REDIRECT_URL = 'user:login'
 STATIC_ROOT = os.path.join("gathered_static_files")
+
+
+LOGIN_REDIRECT_URL = 'core:MovieList'
+LOGIN_URL = 'user:login'
+LOGOUT_REDIRECT_URL = 'core:MovieList'
+
 
 # CACHES = {
 #     'default': {
