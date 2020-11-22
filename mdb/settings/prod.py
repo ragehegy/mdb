@@ -4,6 +4,8 @@ import django_heroku
 
 DEBUG = False
 
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 assert SECRET_KEY is not None,(
     'Please provide app SECRET_KEY env variable with a value.'
 )
@@ -12,6 +14,7 @@ ALLOWED_HOSTS += [
     os.getenv('DJANGO_ALLOWED_HOSTS'), 
     'https://django-mdb.herokuapp.com/',
     'django-mdb.herokuapp.com',
+    '*'
     ]
 
 # DATABASES['default'].update({
@@ -46,9 +49,21 @@ CACHES = {
 
 # MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv("DJANGO_UPLOAD_S3_BUCKET")
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = os.getenv("DJANGO_UPLOAD_S3_BUCKET")
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, 'static'),
+]
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
