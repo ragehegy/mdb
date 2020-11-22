@@ -1,4 +1,4 @@
-from .default import *
+from .settings import *
 import os
 import django_heroku
 
