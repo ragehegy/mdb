@@ -1,4 +1,4 @@
-from .default import *
+from .settings import *
 
 DEBUG = True
 SECRET_KEY = "some secret"
